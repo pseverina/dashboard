@@ -24,32 +24,22 @@ Next dependencies are used in this project
 "vite": "^4.3.9",
 "vitest": "^0.32.0"
 
-## Project Setup
+```
 
-```sh
+## How to start the project
+
+```python
+cd dashboard
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
-```
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
+# if you would like to run test , you should next command
 npm run test:unit
-```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+# if you added some changes and would like to make PR , please run lint before make a reuqest
 npm run lint
+
+# if you added some changes and would like to make PR , please run lint before make a reuqest
+npm run lint
+
 ```
