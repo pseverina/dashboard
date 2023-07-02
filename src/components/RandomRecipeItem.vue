@@ -1,7 +1,7 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { getData } from '../api/index'
-import { convertArray } from '../utils/helpsers'
+import { onMounted, ref, toValue } from 'vue'
+import { useRequest } from '../api/index'
+import { convertArray, isEmptyObject } from '../utils/helpers'
 import RecipeItem from './RecipeItem.vue'
 
 const randomMeal = ref([])
@@ -15,20 +15,16 @@ onMounted(() => {
   getMeal()
 })
 
-const getMeal = async () => {
-  try {
-    const { data } = await getData('https://www.themealdb.com/api/json/v1/1/random.php')
-    randomMeal.value= data.value?.meals[0]
+const getMeal = async() => {
+  const { data } = await useRequest('https://www.themealdb.com/api/json/v1/1/random.php')
+  randomMeal.value = toValue(data.value?.meals[0])
 
-    if (Object.values(randomMeal.value)) {
-      mealName.value = randomMeal.value.strMeal
-      maelImage.value = randomMeal.value.strMealThumb
-      mealVideo.value = randomMeal.value.strYoutube
-      instructions.value = randomMeal.value.strInstructions
-      ingredients.value = convertArray(data.value?.meals[0])
-    }
-  } catch (error) {
-    console.error(error)
+  if (!isEmptyObject(randomMeal.value)) {
+    mealName.value = randomMeal.value.strMeal
+    maelImage.value = randomMeal.value.strMealThumb
+    mealVideo.value = randomMeal.value.strYoutube
+    instructions.value = randomMeal.value.strInstructions
+    ingredients.value = convertArray(data.value?.meals[0])
   }
 }
 

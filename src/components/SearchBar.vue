@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-import { getData } from '../api/index'
+import { ref, toValue } from 'vue'
+import { useRequest } from '../api/index'
 import debounce from 'lodash.debounce'
 
 const emit = defineEmits(
@@ -9,14 +9,10 @@ const emit = defineEmits(
 
 const search = ref('')
 
-const searchForMeal = debounce(async () => {
-    try {
-    const { data } = await getData(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search.value[0]}`)
-    const meal =  data.value?.meals[0]
-    emit('searchResults', meal)
-  } catch (error) {
-    console.error(error)
-  }
+const searchForMeal = debounce(async() => {
+  const { data } = await useRequest(`https://www.themealdb.com/api/json/v1/1/search.php?f=${search.value[0]}`)
+  const meal = toValue(data.value?.meals[0])
+  emit('searchResults', meal)
 }, 500)
 </script>
 

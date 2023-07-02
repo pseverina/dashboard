@@ -1,9 +1,10 @@
 import { ref } from 'vue'
 import axios from 'axios'
 
-export const getData = async (url, config = {}) => {
+export const useRequest = async (url, config = {}) => {
   const data = ref(null)
   const response = ref(null)
+  const onError = ref(null)
 
   try {
     const result = await axios.request({
@@ -14,8 +15,9 @@ export const getData = async (url, config = {}) => {
     response.value = result
     data.value = result.data
   } catch (error) {
-    console.error(error)
+    console.log('error: ' + error)
+    onError.value = error
   }
 
-  return { response, data, fetch }
+  return { response, data, onError }
 }

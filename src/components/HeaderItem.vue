@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { getData } from '../api/index'
+import { onMounted, ref, toValue } from 'vue'
+import { useRequest } from '../api/index'
 
 defineProps({
   msg: {
@@ -11,9 +11,9 @@ defineProps({
 
 const menu = ref([])
 
-onMounted(async () => {
-  const { data } = await getData('https://www.themealdb.com/api/json/v1/1/categories.php')
-  menu.value= data.valueы
+onMounted(async() => {
+  const { data } = await useRequest('https://www.themealdb.com/api/json/v1/1/categories.php')
+  menu.value = toValue(data)
 })
 </script>
 

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { convertArray } from '../utils/helpsers'
+import { convertArray, isEmptyObject } from '../utils/helpers'
 import SearchBar from '../components/SearchBar.vue'
 import RecipeItem from '../components/RecipeItem.vue'
 
@@ -11,7 +11,7 @@ const ingredients = ref([])
 const instructions = ref('')
 
 const onSearchResults = (meal) => {
-   if (Object.values(meal)) {
+   if (!isEmptyObject(meal)) {
     mealName.value = meal.strMeal
     maelImage.value = meal.strMealThumb
     mealVideo.value = meal.strYoutube
@@ -51,17 +51,18 @@ const onSearchResults = (meal) => {
   flex-direction: column;
 
   &__header {
-    width: 300px;
     display: flex;
     align-self: center;
     text-align: center;
     margin-bottom: 15px;
+    width: 300px;
   }
 
   &__item {
     display: flex;
     flex-direction: column;
     align-self: center;
+      width: 300px;
   }
 }
 </style>
