@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, toValue } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRequest } from '../api/index'
 import { convertArray, isEmptyObject } from '../utils/helpers'
 import RecipeItem from './RecipeItem.vue'
@@ -17,7 +17,7 @@ onMounted(() => {
 
 const getMeal = async() => {
   const { data } = await useRequest('https://www.themealdb.com/api/json/v1/1/random.php')
-  randomMeal.value = toValue(data.value?.meals[0])
+  randomMeal.value = data.value?.meals[0]
 
   if (!isEmptyObject(randomMeal.value)) {
     mealName.value = randomMeal.value.strMeal
