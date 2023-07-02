@@ -39,7 +39,4 @@ npm run test:unit
 # if you added some changes and would like to make PR , please run lint before make a reuqest
 npm run lint
 
-# if you added some changes and would like to make PR , please run lint before make a reuqest
-npm run lint
-
 ```
